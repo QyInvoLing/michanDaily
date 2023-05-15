@@ -1,0 +1,6 @@
+
+# 自定义字段
+# 关注的画师UID列表
+followedUsers = []
+# 必须的字段
+enabled = true

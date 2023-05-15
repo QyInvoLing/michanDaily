@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+      "target": "esnext",
+      // "esModuleInterop":true,
+      // "module": "esnext",
+      "moduleResolution": "Node",
+      "baseUrl": ".",
+      "paths": {
+        "@/*": ["src/*"],
+        "@cache/*": ["cache/*"]
+      }
+    },
+    // "ts-node": {
+    //   "esm": true,
+    //   // "experimentalSpecifierResolution": "node"
+    // }
+  }
