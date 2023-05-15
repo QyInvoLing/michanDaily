@@ -2,7 +2,7 @@
  * @Author: QyInvoLing
  * @Date: 2023-05-15 16:28:26
  * @LastEditors: QyInvoLing
- * @LastEditTime: 2023-05-15 17:01:40
+ * @LastEditTime: 2023-05-15 17:32:03
  * @FilePath: \michanDaily\src\services\generator\Markdown\main.ts
  * @Description: 
  */
@@ -30,6 +30,10 @@ class Markdown extends Generator {
 
     }
 }
+/**
+ * 保存到cache
+ * @param text 
+ */
 const save = (text: string) => {
     writeFileSync(path.resolve("cache/generated/pixiv_markdown.md"),text,{
         encoding: "utf8",

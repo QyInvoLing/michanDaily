@@ -2,7 +2,7 @@
  * @Author: QyInvoLing
  * @Date: 2023-05-15 16:12:31
  * @LastEditors: QyInvoLing
- * @LastEditTime: 2023-05-15 16:33:06
+ * @LastEditTime: 2023-05-15 17:34:18
  * @FilePath: \michanDaily\src\services\generator\Generator.ts
  * @Description: 
  */
@@ -18,7 +18,11 @@ abstract class Generator {
         this.name = this.constructor.name
         this.loadConfig()
     }
-    loadConfig() {//将配置文件加载到config字段，将启用/禁用加载到enabled字段
+    /**
+     * 将配置文件加载到config字段，将启用/禁用加载到enabled字段
+     * @returns 
+     */
+    loadConfig() {
         try {
             const rawConfigFile = readFileSync(`@/../config/generator/${this.constructor.name}.toml`, 'utf8');
             let toml = TOML.parse(rawConfigFile)
