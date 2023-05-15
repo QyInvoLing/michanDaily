@@ -2,7 +2,7 @@
  * @Author: QyInvoLing
  * @Date: 2023-05-11 15:34:49
  * @LastEditors: QyInvoLing
- * @LastEditTime: 2023-05-15 15:41:12
+ * @LastEditTime: 2023-05-15 17:26:46
  * @FilePath: \michanDaily\src\services\puller\Pixiv\utils\rawIllustHandler.ts
  * @Description: 
  */
@@ -34,7 +34,7 @@ const fillIntoIllust = (illustEntity: IllustEntity) => {
 const timeFilter = (illust: Illust) => {
     let timeNow = new Date()
     let time = new Date(illust.create_date)
-    return true||time.toDateString() == timeNow.toDateString()
+    return time.toDateString() == timeNow.toDateString()
 }
 /**
  * 将fetch得到的原始json解析，返回一个Array

@@ -2,7 +2,7 @@
  * @Author: QyInvoLing
  * @Date: 2023-05-10 14:47:07
  * @LastEditors: QyInvoLing
- * @LastEditTime: 2023-05-15 17:00:40
+ * @LastEditTime: 2023-05-15 17:31:03
  * @FilePath: \michanDaily\src\app.ts
  * @Description: 
  */
@@ -81,8 +81,8 @@ const clearCache = () => {
     }
     const cachePullerPath = path.resolve("cache/pulled")
     const cacheGeneratorPath = path.resolve("cache/generated")
-    // emptyDirectory(cachePullerPath)
-    // emptyDirectory(cacheGeneratorPath)
+    emptyDirectory(cachePullerPath)
+    emptyDirectory(cacheGeneratorPath)
 }
 const main = async () => {
     await runPullers()
