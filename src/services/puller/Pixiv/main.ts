@@ -2,7 +2,7 @@
  * @Author: QyInvoLing
  * @Date: 2023-05-10 15:14:23
  * @LastEditors: QyInvoLing
- * @LastEditTime: 2023-05-15 15:46:15
+ * @LastEditTime: 2023-05-16 09:26:51
  * @FilePath: \michanDaily\src\services\puller\Pixiv\main.ts
  * @Description: 
  */
@@ -15,7 +15,7 @@
  * @Description: 
  */
 import Puller from "@/services/puller/Puller"
-import { getMemberIllust } from "@/api/Pixiv/HibiApi"
+import { getMemberIllust } from "./api/hibiApi"
 import logger from '@/lib/logger'
 import { MemberIllustRaw } from '@/types/MemberIllustRaw';
 import { save } from "./utils/save"

@@ -2,7 +2,7 @@
  * @Author: QyInvoLing
  * @Date: 2023-05-10 14:47:07
  * @LastEditors: QyInvoLing
- * @LastEditTime: 2023-05-15 17:31:03
+ * @LastEditTime: 2023-05-16 11:12:13
  * @FilePath: \michanDaily\src\app.ts
  * @Description: 
  */
@@ -53,6 +53,23 @@ const runPullers = async () => {
     await Promise.all(pullerInstances.map(i => i.start()))
 
 }
+const runPushers = async () => {
+    const pushersPath = path.join(__dirname, 'services', 'pusher');
+    const pusherDirs = fs.readdirSync(pushersPath, { withFileTypes: true })
+        .filter(dirent => dirent.isDirectory());
+
+    const pusherInstances: Puller[] = pusherDirs.map(dirent => {
+        const pusherName = dirent.name;
+        const pusherModulePath = path.join(pushersPath, pusherName, 'main');
+        const pusherClass = require(pusherModulePath).default;
+        return new pusherClass();
+    });
+
+    logger.info(`Pushers loaded successfully. Total: ${pusherInstances.length}`);
+    //运行所有Pusher的start方法
+    await Promise.all(pusherInstances.map(i => i.start()))
+
+}
 /**
  * 运行结束，清空cache目录
  */
@@ -87,6 +104,7 @@ const clearCache = () => {
 const main = async () => {
     await runPullers()
     await runGenerators()
+    await runPushers()
     clearCache()
 }
 main()

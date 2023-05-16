@@ -2,7 +2,7 @@
  * @Author: QyInvoLing
  * @Date: 2023-05-10 15:06:05
  * @LastEditors: QyInvoLing
- * @LastEditTime: 2023-05-15 15:47:31
+ * @LastEditTime: 2023-05-16 15:06:23
  * @FilePath: \michanDaily\src\services\puller\Puller.ts
  * @Description: 
  */
@@ -31,12 +31,16 @@ abstract class Puller {
         }
     }
     async start(){
-        logger.info(`Puller ${this.constructor.name} starts.`)
-        try{
-            await this.run()
-            logger.info(`Puller ${this.constructor.name} finished.`)
-        }catch(e){
-            logger.info(`Puller ${this.constructor.name} came across an error:${e}`)
+        if (this.enabled) {
+            logger.info(`Puller ${this.constructor.name} starts.`)
+            try {
+                await this.run()
+                logger.info(`Puller ${this.constructor.name} finished.`)
+            } catch (e) {
+                logger.info(`Puller ${this.constructor.name} came across an error:${e}`)
+            }
+        }else{
+            logger.info(`Puller ${this.constructor.name} is disabled.`)
         }
         
     }

@@ -1,0 +1,5 @@
+url = ""
+username = ""
+password = ""
+# 必须的字段
+enabled = true
