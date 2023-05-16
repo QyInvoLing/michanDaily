@@ -2,7 +2,7 @@
  * @Author: QyInvoLing
  * @Date: 2023-05-11 15:34:49
  * @LastEditors: QyInvoLing
- * @LastEditTime: 2023-05-15 17:26:46
+ * @LastEditTime: 2023-05-16 15:48:32
  * @FilePath: \michanDaily\src\services\puller\Pixiv\utils\rawIllustHandler.ts
  * @Description: 
  */
@@ -27,14 +27,18 @@ const fillIntoIllust = (illustEntity: IllustEntity) => {
     return illust
 }
 /**
- * 判断是否为今日图片
+ * 判断是否为昨日图片
  * @param illust 
  * @returns 
  */
 const timeFilter = (illust: Illust) => {
-    let timeNow = new Date()
-    let time = new Date(illust.create_date)
-    return time.toDateString() == timeNow.toDateString()
+    const yesterday = new Date()
+    yesterday.setDate(yesterday.getDate() - 1)
+    yesterday.setHours(0, 0, 0, 0)
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+    let date = new Date(illust.create_date)
+    return date >= yesterday && date < today
 }
 /**
  * 将fetch得到的原始json解析，返回一个Array

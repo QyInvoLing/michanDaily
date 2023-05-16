@@ -148,7 +148,7 @@ class FlarumInterface {
                 "id": `${mainPostID}`
             }
         }
-        logger.info(newPostContent)
+        
         let res = await fetch(`${this.url}/api/posts/${mainPostID}`, {
             method: "PATCH",
             headers: this.headers as HeadersInit,

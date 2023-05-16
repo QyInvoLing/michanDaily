@@ -1,5 +1,6 @@
 url = ""
 username = ""
 password = ""
+discussionId = -1
 # 必须的字段
 enabled = true
