@@ -2,7 +2,7 @@
  * @Author: QyInvoLing
  * @Date: 2023-05-11 15:34:49
  * @LastEditors: QyInvoLing
- * @LastEditTime: 2023-05-16 15:48:32
+ * @LastEditTime: 2023-05-17 16:52:48
  * @FilePath: \michanDaily\src\services\puller\Pixiv\utils\rawIllustHandler.ts
  * @Description: 
  */
@@ -46,6 +46,11 @@ const timeFilter = (illust: Illust) => {
  * @returns 
  */
 export const handleRawIllustJson = (rawIllustJson: MemberIllustRaw) => {
-    let illustsArray = rawIllustJson.illusts.map(fillIntoIllust).filter(timeFilter)
-    return illustsArray
+    try{
+        let illustsArray = rawIllustJson.illusts.map(fillIntoIllust).filter(timeFilter)
+        return illustsArray
+    }catch(e){
+        return []
+    }
+    
 }

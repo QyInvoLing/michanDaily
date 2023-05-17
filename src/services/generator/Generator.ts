@@ -2,7 +2,7 @@
  * @Author: QyInvoLing
  * @Date: 2023-05-15 16:12:31
  * @LastEditors: QyInvoLing
- * @LastEditTime: 2023-05-16 15:06:42
+ * @LastEditTime: 2023-05-17 15:12:38
  * @FilePath: \michanDaily\src\services\generator\Generator.ts
  * @Description: 
  */
@@ -25,16 +25,15 @@ abstract class Generator {
     loadConfig() {
         try {
             const rawConfigFile = readFileSync(`@/../config/generator/${this.constructor.name}.toml`, 'utf8');
-            let toml = TOML.parse(rawConfigFile)
+            let toml = TOML.parse(rawConfigFile, '\n')
             this.enabled = toml.enabled as boolean
             this.config = toml
-            return "success"
         } catch (err: any) {
             this.enabled = false
-            return "invalid_config"
+            logger.info(`Invalid config for generator ${this.constructor.name}. Details: ${err}`)
         }
     }
-    async start(){
+    async start() {
         if (this.enabled) {
             logger.info(`Generator ${this.constructor.name} starts.`)
             try {
@@ -43,10 +42,10 @@ abstract class Generator {
             } catch (e) {
                 logger.info(`Generator ${this.constructor.name} came across an error:${e}`)
             }
-        }else{
+        } else {
             logger.info(`Generator ${this.constructor.name} is disabled.`)
         }
-        
+
     }
 }
 export default Generator

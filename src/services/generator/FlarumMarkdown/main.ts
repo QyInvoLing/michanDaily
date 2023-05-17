@@ -2,7 +2,7 @@
  * @Author: QyInvoLing
  * @Date: 2023-05-15 16:28:26
  * @LastEditors: QyInvoLing
- * @LastEditTime: 2023-05-16 17:33:04
+ * @LastEditTime: 2023-05-17 15:22:19
  * @FilePath: \michanDaily\src\services\generator\FlarumMarkdown\main.ts
  * @Description: 
  */
@@ -19,24 +19,24 @@ class FlarumMarkdown extends Generator {
     }
     run() {
         let today = (new Date()).toLocaleDateString()
-        let markdownString = `# 米站日报${today}——深渊截止提醒、每日涩图\n\n`
+        let template = "" + this.config.template as string
         let abyssNotice = readFileSync(path.resolve("cache/pulled/abyss_notice.md"), { encoding: 'utf8', flag: 'r' })
-        markdownString += "### 深渊截止提醒\n"
-        markdownString += abyssNotice + "\n"
         //处理pixiv puller生成的内容
-        markdownString += "### 每日涩图\n已关注画师数量有限，所以目前数量稀少!\n>!"
+        let pixivMarkdown = ""
         let pixivCache = this.loadPixivCache()
-        Object.keys(pixivCache).forEach((author)=>{
+        Object.keys(pixivCache).forEach((author) => {
             let illustArray: Illust[] = pixivCache[author]
-            illustArray.map(illust=>{
-                markdownString+=`![${illust.title.slice(0,10)},PID${illust.id},Author${author}](${illust.source})\n`
+            illustArray.map(illust => {
+                pixivMarkdown += `![${illust.title.slice(0, 10)},PID${illust.id},Author${author}](${illust.source})\n`
             })
         })
-        markdownString += "\n### 关于米站日报\n\
-        米站日报由机器人自动生成并每日推送，推送时，会将昨天的日报回复到本主题内，所以所有的日报都会被存档至本主题的回复下。\n\n\
-        \
-        "
-        save(markdownString)
+        if(pixivMarkdown==""){
+            pixivMarkdown = "呃啊,今天所有关注的画师都没有发表新作呢!"
+        }
+        template = template.replace("{today}", today)
+            .replace("{abyssnotice}", abyssNotice)
+            .replace("{pixiv}", pixivMarkdown)
+        save(template)
 
     }
 }
@@ -45,9 +45,9 @@ class FlarumMarkdown extends Generator {
  * @param text 
  */
 const save = (text: string) => {
-    writeFileSync(path.resolve("cache/generated/pixiv_markdown.md"),text,{
+    writeFileSync(path.resolve("cache/generated/pixiv_markdown.md"), text, {
         encoding: "utf8",
         flag: "w+"
-      })
+    })
 }
 export default FlarumMarkdown

@@ -2,7 +2,7 @@
  * @Author: QyInvoLing
  * @Date: 2023-05-10 15:06:05
  * @LastEditors: QyInvoLing
- * @LastEditTime: 2023-05-16 15:06:23
+ * @LastEditTime: 2023-05-17 15:13:24
  * @FilePath: \michanDaily\src\services\puller\Puller.ts
  * @Description: 
  */
@@ -21,13 +21,12 @@ abstract class Puller {
     loadConfig() {//将配置文件加载到config字段，将启用/禁用加载到enabled字段
         try {
             const rawConfigFile = readFileSync(`@/../config/puller/${this.constructor.name}.toml`, 'utf8');
-            let toml = TOML.parse(rawConfigFile)
+            let toml = TOML.parse(rawConfigFile,'\n')
             this.enabled = toml.enabled as boolean
             this.config = toml
-            return "success"
         } catch (err: any) {
             this.enabled = false
-            return "invalid_config"
+            logger.info(`Invalid config for puller ${this.constructor.name}. Details: ${err}`)
         }
     }
     async start(){
