@@ -2,7 +2,7 @@
     "main": "./src/app.ts",
     
     "scripts": {
-        "debug": "npx nodemon",
+        "debug": "npx nodemon --debug| pino-pretty",
         "dev": "npx nodemon| pino-pretty",
         "start": "npx ts-node ./src/app.ts|pino-pretty"
     },

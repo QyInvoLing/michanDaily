@@ -2,19 +2,21 @@
  * @Author: QyInvoLing
  * @Date: 2023-05-15 16:12:31
  * @LastEditors: QyInvoLing
- * @LastEditTime: 2023-05-17 15:12:38
+ * @LastEditTime: 2023-05-18 16:22:07
  * @FilePath: \michanDaily\src\services\generator\Generator.ts
  * @Description: 
  */
 import { readFileSync } from 'fs'
 import * as TOML from '@ltd/j-toml';
 import logger from '@/lib/logger';
-abstract class Generator {
+import Service from '@/types/Service';
+abstract class Generator extends Service{
     name: string
     enabled: boolean
     config: ReturnType<typeof TOML.parse>
     abstract run(): void
     constructor() {
+        super()
         this.name = this.constructor.name
         this.loadConfig()
     }

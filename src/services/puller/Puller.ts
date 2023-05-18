@@ -9,12 +9,14 @@
 import { readFileSync } from 'fs'
 import * as TOML from '@ltd/j-toml';
 import logger from '@/lib/logger';
-abstract class Puller {
+import Service from '@/types/Service';
+abstract class Puller extends Service{
     name: string
     enabled: boolean
     config: ReturnType<typeof TOML.parse>
     abstract run(): void
     constructor() {
+        super()
         this.name = this.constructor.name
         this.loadConfig()
     }
